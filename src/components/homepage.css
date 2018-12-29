@@ -1,0 +1,37 @@
+#UtilitySection{
+  color: black;
+  padding-top: 70px;
+  height: 400px;
+  background: url("../assets/swirl_pattern.png") repeat;
+}
+
+#AboutSection{
+  color: black;
+  height: 400px;
+  background: url("../assets/connect_@2X.png") repeat;
+}
+
+#DonateSection{
+  color: black;
+  height: 800px;
+  background: url("../assets/foggy_birds_@2X.png") repeat;
+}
+
+
+#SignUpSection{
+  color: black;
+  font-size: large;
+  height: 500px;
+  background: url("../assets/ignasi_pattern_s.png") repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#navbar{
+    background: url('../assets/pink_dust.png') repeat top;
+}
+
+Input{
+  max-width: 250px;
+}
