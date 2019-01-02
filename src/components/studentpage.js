@@ -14,6 +14,21 @@ import {
 
 
 class studentpage extends Component {
+    
+      constructor(props) {
+        super(props);
+
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false
+        };
+    }
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
+    
   render() {
     return (
       <div className="StudentPage" id='studentPage'>
@@ -32,8 +47,14 @@ class studentpage extends Component {
                     </Collapse>
                 </Navbar>
                 
+                <div className='mainSection'>
+                <div>
                 <Button outline color="success" size="lg">ENTER QUIZ</Button>
+                </div>
+                <div>
                 <Button outline color="info" size="lg">SEE GRADES</Button>
+                </div>
+                </div>
      
       </div>
     );
