@@ -35,3 +35,7 @@
 Input{
   max-width: 250px;
 }
+
+#studentPage{
+    background: url('../assets/hip-square.png') repeat top;
+}

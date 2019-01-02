@@ -10,6 +10,18 @@ class signup extends Component {
       <div id='loginForm'>
            <Form>
                 <FormGroup row>
+                  <Label for="firstName" sm={2}>First Name</Label>
+                  <Col sm={10}>
+                  <Input type="text" name="firstName" id="firstN" />
+                  </Col>
+                </FormGroup>
+                 <FormGroup row>
+                 <Label for="lastName" sm={2}>Last Name</Label>
+                  <Col sm={10}>
+                  <Input type="text" name="lastName" id="lastN" />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
                   <Label for="exampleEmail" sm={2}>Email</Label>
                   <Col sm={10}>
                   <Input type="email" name="email" id="exampleEmail" placeholder="name@csie.ase.ro" />
