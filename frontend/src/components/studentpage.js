@@ -28,7 +28,7 @@ class studentpage extends Component {
             isOpen: !this.state.isOpen
         });
     }
-    
+
   render() {
     return (
       <div className="StudentPage" id='studentPage'>
@@ -48,12 +48,8 @@ class studentpage extends Component {
                 </Navbar>
                 
                 <div className='mainSection'>
-                <div>
                 <Button outline color="success" size="lg">ENTER QUIZ</Button>
-                </div>
-                <div>
                 <Button outline color="info" size="lg">SEE GRADES</Button>
-                </div>
                 </div>
      
       </div>

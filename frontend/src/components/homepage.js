@@ -65,7 +65,6 @@ class homepage extends Component {
                     passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                     
                     
-                    <button>Student Page</button>
                     <li><Link to='/studentPage'>Student Page</Link></li>
                   </div>
                 
