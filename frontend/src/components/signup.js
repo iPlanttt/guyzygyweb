@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Form, FormGroup, Label, Input, Col} from 'reactstrap';
-import './homepage.css';
+import './App.css';
 
 class signup extends Component {
   

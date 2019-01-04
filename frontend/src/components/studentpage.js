@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../assets/logo2.png';
-import './homepage.css';
+import './App.css';
+import './StudentQuiz'
 import {
     Collapse,
     Navbar,
@@ -11,6 +12,7 @@ import {
     NavLink,
     Button
 } from 'reactstrap';
+import {Link} from "react-router-dom";
 
 
 class studentpage extends Component {
@@ -28,7 +30,7 @@ class studentpage extends Component {
             isOpen: !this.state.isOpen
         });
     }
-
+    
   render() {
     return (
       <div className="StudentPage" id='studentPage'>
@@ -48,8 +50,13 @@ class studentpage extends Component {
                 </Navbar>
                 
                 <div className='mainSection'>
-                <Button outline color="success" size="lg">ENTER QUIZ</Button>
+                <div>
+                <li><Link to='/StudentQuiz'>ENTER QUIZ</Link></li>
+
+                </div>
+                <div>
                 <Button outline color="info" size="lg">SEE GRADES</Button>
+                </div>
                 </div>
      
       </div>
