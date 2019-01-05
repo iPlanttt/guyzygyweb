@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Form, FormGroup, Label, Input, Col} from 'reactstrap';
+import {Label, FormGroup, Input} from 'reactstrap';
 import './App.css';
+import { Redirect } from 'react-router';
 
 class signup extends Component {
   
@@ -20,50 +21,44 @@ class signup extends Component {
     };
   }
   
-  
-  redirectToTarget = () => {
-    this.context.router.history.push('/studentPage');
-  }
-  
   render() {
+    
+     if (this.state.userType === 'Student') {
+      return <Redirect to='/studentPage' />
+    }
+     if (this.state.userType === 'Professor') {
+      return <Redirect to='/profPage' />
+    }
+    
     return (
       <div className="SignUp">
       
       <div id='loginForm'>
-           <Form>
-                <FormGroup row>
-                  <Label for="firstName" sm={2}>First Name</Label>
-                  <Col sm={10}>
-                  <Input type="text" name="firstName" id="firstN" onChange={this.handleChange} />
-                  </Col>
-                </FormGroup>
-                 <FormGroup row>
-                 <Label for="lastName" sm={2}>Last Name</Label>
-                  <Col sm={10}>
-                  <Input type="text" name="lastName" id="lastN" onChange={this.handleChange}/>
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Label for="exampleEmail" sm={2}>Email</Label>
-                  <Col sm={10}>
-                  <Input type="email" name="email" id="exampleEmail" placeholder="name@csie.ase.ro" onChange={this.handleChange}/>
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Label for="examplePassword" sm={2}>Password</Label>
-                  <Col sm={10}>
-                  <Input type="password" name="password" id="examplePassword" placeholder="password" onChange={this.handleChange}/>
-                  </Col>
-                </FormGroup>
-                 <FormGroup row>
-                  <Label for="retypePassword" sm={2}>Retype Password</Label>
-                  <Col sm={10}>
-                  <Input type="password" name="retypePassword" id="retypePassword" placeholder="retype password" onChange={this.handleChange}/>
-                  </Col>
-                </FormGroup>
+           <form>
+                <div className='block'>
+                  <label for="firstName" >First Name</label>
+                  <input type="text" name="firstName" id="firstN" onChange={this.handleChange} />
+                  </div>
+                  <div className='block'>
+                 <label for="lastName" >Last Name</label>
+                  <input type="text" name="lastName" id="lastN" onChange={this.handleChange}/>
+                  </div>
+                  <div className='block'>
+                  <label for="exampleEmail" >Email</label>
+                  <input type="email" name="email" id="exampleEmail" placeholder="name@csie.ase.ro" onChange={this.handleChange}/>
+                  </div>
+                  <div className='block'>
+                  <label for="examplePassword" >Password</label>
+                  <input type="password" name="password" id="examplePassword" placeholder="password" onChange={this.handleChange}/>
+                  </div>
+                  <div className='block'>
+                  <label for="retypePassword" >Retype Password</label>
+                  <input type="password" name="retypePassword" id="retypePassword" placeholder="retype password" onChange={this.handleChange}/>
+                </div>
+                
                 <FormGroup tag="fieldset" row>
-                  <legend className="col-form-label col-sm-10">Student or Teacher?</legend>
-                  <Col sm={10}>
+                  <legend className="col-form-label sm-10">Student or Teacher?</legend>
+                 
                     <FormGroup check>
                       <Label check>
                         <Input type="radio" name="radioStudent" onChange={this.handleChange}/>
@@ -76,9 +71,9 @@ class signup extends Component {
                         Teacher
                       </Label>
                     </FormGroup>
-                    </Col>
-                  </FormGroup>
-                 <input type="button" value="REGISTER" onClick={() => {
+                    </FormGroup>
+                  
+                 <input className='btnClk logBtn' type="button" value="REGISTER" onClick={() => {
                   if (this.state.password === this.state.retypePassword)
                 {
                 var sha256 = require('js-sha256').sha256;
@@ -95,7 +90,17 @@ class signup extends Component {
                       
                       this.redirectToTarget();
           }}} />
-              </Form>
+          
+    <button className='btnClk logBtn' onClick={() => {
+              console.log("modal closed ");
+              
+              /********************/
+              
+            }}>
+            Cancel
+          </button>
+          
+              </form>
         </div>
               
       </div>

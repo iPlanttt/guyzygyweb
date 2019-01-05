@@ -10,9 +10,9 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Button
+    Form, FormGroup, Label, Input
 } from 'reactstrap';
-import {Link} from "react-router-dom";
+import { Redirect } from 'react-router';
 
 
 class studentpage extends Component {
@@ -22,7 +22,9 @@ class studentpage extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            toQuiz: false,
+            toGrades: false
         };
     }
     toggle() {
@@ -32,6 +34,15 @@ class studentpage extends Component {
     }
     
   render() {
+      
+      if (this.state.toQuiz === true) {
+      return <Redirect to='/StudentQuiz' />
+    }
+     if (this.state.toGrades === true) {
+      return <Redirect to='/StudentQuiz' />
+    }
+      
+      
     return (
       <div className="StudentPage" id='studentPage'>
      
@@ -51,11 +62,22 @@ class studentpage extends Component {
                 
                 <div className='mainSection'>
                 <div>
-                <li><Link to='/StudentQuiz'>ENTER QUIZ</Link></li>
-
+                <Form>
+                <FormGroup>
+                  <Label for="code" sm={10}>Enter code</Label>
+                  <Input type="text" name="code" id="codeQ" onChange={this.handleChange} />
+                
+                <input className='btnClk' type="button" value="ENTER QUIZ" onClick={() => {
+                      this.setState({ toQuiz: true});
+          }} />
+            </FormGroup>
+             </Form>
                 </div>
                 <div>
-                <Button outline color="info" size="lg">SEE GRADES</Button>
+               <input className='btnClk' type="button" value="SEE GRADES" onClick={() => {
+ 
+                       this.setState({ toGrades: true});
+          }} />
                 </div>
                 </div>
      

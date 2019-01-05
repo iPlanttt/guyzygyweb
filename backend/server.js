@@ -83,7 +83,7 @@ app.get('/users', async (req, res) => {
 	    		params.limit = pageSize
 	    	}
 	    }
-		let users = await Student.findAll(params)
+		let users = await User.findAll(params)
 		res.status(200).json(users)
 	}
 	catch(e){
@@ -95,11 +95,11 @@ app.get('/users', async (req, res) => {
 app.post('/users', async (req, res) => {
 	try{
 		if (req.query.bulk && req.query.bulk == 'on'){
-			await Student.bulkCreate(req.body)
+			await User.bulkCreate(req.body)
 			res.status(201).json({message : 'created'})
 		}
 		else{
-			await Student.create(req.body)
+			await User.create(req.body)
 			res.status(201).json({message : 'created'})
 		}
 	}
@@ -111,9 +111,9 @@ app.post('/users', async (req, res) => {
 
 app.get('/users/:id', async (req, res) => {
 	try{
-		let student = await Student.findById(req.params.id)
-		if (student){
-			res.status(200).json(student)
+		let User = await User.findById(req.params.id)
+		if (User){
+			res.status(200).json(User)
 		}
 		else{
 			res.status(404).json({message : 'not found'})
@@ -127,9 +127,9 @@ app.get('/users/:id', async (req, res) => {
 
 app.put('/users/:id', async (req, res) => {
 	try{
-		let student = await Student.findById(req.params.id)
-		if (student){
-			await student.update(req.body)
+		let User = await User.findById(req.params.id)
+		if (User){
+			await User.update(req.body)
 			res.status(202).json({message : 'accepted'})
 		}
 		else{
@@ -144,9 +144,9 @@ app.put('/users/:id', async (req, res) => {
 
 app.delete('/users/:id', async (req, res) => {
 	try{
-		let student = await Student.findById(req.params.id)
-		if (student){
-			await student.destroy()
+		let User = await User.findById(req.params.id)
+		if (User){
+			await User.destroy()
 			res.status(202).json({message : 'accepted'})
 		}
 		else{

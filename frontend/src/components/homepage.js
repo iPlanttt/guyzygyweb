@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from '../assets/logo2.png';
-import SignUp from './signup.js';
+import LogIn from './login.js';
 import {
     Collapse,
     Navbar,
@@ -66,10 +66,11 @@ class homepage extends Component {
                     
                     
                     <li><Link to='/studentPage'>Student Page</Link></li>
+                    <li><Link to='/profPage'>Proff Page</Link></li>
                   </div>
                 
                   <div id="SignUpSection">
-                  <SignUp />
+                  <LogIn />
                 </div>
                 
                   <div id="AboutSection">
