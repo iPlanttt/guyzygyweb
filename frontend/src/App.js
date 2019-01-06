@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom'
 import StudentPage from "./components/studentpage.js";
 import StudentQuiz from "./components/StudentQuiz.js";
 import ProfPage from './components/profpage.js'
+import createQuiz from './components/createQuiz.js'
+import editQuizes from './components/editQuizes.js'
 
 class App extends Component {
   render() {
@@ -14,6 +16,8 @@ class App extends Component {
       <Route path='/studentPage' component={StudentPage}/>
       <Route path='/StudentQuiz' component={StudentQuiz}/>
       <Route path='/profPage' component={ProfPage}/>
+      <Route path='/createQuiz' component={createQuiz}/>
+      <Route path='/editQuizes' component={editQuizes}/>
 
 
       </div>

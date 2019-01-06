@@ -39,13 +39,13 @@ class profpage extends Component {
       return <Redirect to='/StudentQuiz' />
     }
      if (this.state.toMyQiuzzes === true) {
-      return <Redirect to='/StudentQuiz' />
+      return <Redirect to='/editQuizes' />
     }
     if (this.state.toStartQuiz === true) {
       return <Redirect to='/StudentQuiz' />
     }
      if (this.state.toCreateNewQuiz === true) {
-      return <Redirect to='/StudentQuiz' />
+      return <Redirect to='/createQuiz' />
     }
       
     return (
