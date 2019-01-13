@@ -20,12 +20,69 @@ class signup extends Component {
         super(props);
     }
 
+    render() {
+
+        return (
+            <div className="SignUp">
+
+                <div id='loginForm'>
+                    <form>
+                        <div className='block'>
+                            <label htmlFor="firstNameBox" >First Name</label>
+                            <input type="text" id="firstNameBox"/>
+                        </div>
+                        <div className='block'>
+                            <label htmlFor="lastNameBox" >Last Name</label>
+                            <input type="text" id="lastNameBox"/>
+                        </div>
+                        <div className='block'>
+                            <label htmlFor="emailBox" >Email</label>
+                            <input type="email" id="emailBox" placeholder="name@csie.ase.ro"/>
+                        </div>
+                        <div className='block'>
+                            <label htmlFor="passwordBox" >Password</label>
+                            <input type="password" id="passwordBox" placeholder="password"/>
+                        </div>
+                        <div className='block'>
+                            <label htmlFor="etypePasswordBox" >Retype Password</label>
+                            <input type="password" id="retypePasswordBox" placeholder="retype password"/>
+                        </div>
+
+                        <FormGroup tag="fieldset" row>
+                            <legend className="col-form-label sm-10">Student or Teacher?</legend>
+
+                            <FormGroup check>
+                                <Label check>
+                                    <input type="radio" name="userTypeBox" value="Student"/>
+                                    Student
+                                </Label>
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <input type="radio" name="userTypeBox" value="Professor"/>
+                                    Professor
+                                </Label>
+                            </FormGroup>
+                        </FormGroup>
+
+                        <input className='btnClk logBtn' type="button" value="REGISTER" id="registerButton"/>
+                    </form>
+                </div>
+
+            </div>
+
+        )
+    }
+    
     componentWillMount() {
 
         var endpoint_API = "http://quyzygy.us/";
 
         $(window).on('load', function () {
-            $("#loginButton").on('click', function () {
+            $("#registerButton").on('click', function () {
+
+                console.log("sdfsdfds");
+
                 let hash = sha256($("#passwordBox").val());
                 var radioValue = $("input[name='userTypeBox']:checked").val();
 
@@ -34,9 +91,8 @@ class signup extends Component {
                     type: "POST",
                     dataType: 'json',
                     contentType: 'application/json',
-                    data: JSON.stringify({ "id": "0", "firstName": $("#firstNameBox").val(), "lastName": $("#lastNameBox").val(),
-                        "email": $("#emailBox").val(), "passwordHash": hash, "userType": radioValue  }),
-                    processData: false,
+                    data: JSON.stringify({ firstName: $("#firstNameBox").val(), lastName: $("#lastNameBox").val(),
+                        email: $("#emailBox").val(), passwordHash: hash, userType: radioValue  }),
                     crossDomain: true,
                     success: function (response) {
                         console.log(response);
@@ -76,59 +132,6 @@ class signup extends Component {
         }
     }
 
-    render() {
-
-        return (
-            <div className="SignUp">
-
-                <div id='loginForm'>
-                    <form>
-                        <div className='block'>
-                            <label htmlFor="firstName" >First Name</label>
-                            <input type="text" name="firstNameBox" id="firstN" />
-                        </div>
-                        <div className='block'>
-                            <label htmlFor="lastName" >Last Name</label>
-                            <input type="text" name="lastNameBox" id="lastN"/>
-                        </div>
-                        <div className='block'>
-                            <label htmlFor="exampleEmail" >Email</label>
-                            <input type="email" name="emailBox" id="exampleEmail" placeholder="name@csie.ase.ro"/>
-                        </div>
-                        <div className='block'>
-                            <label htmlFor="examplePassword" >Password</label>
-                            <input type="password" name="passwordBox" id="examplePassword" placeholder="password"/>
-                        </div>
-                        <div className='block'>
-                            <label htmlFor="retypePassword" >Retype Password</label>
-                            <input type="password" name="retypePasswordBox" id="retypePassword" placeholder="retype password"/>
-                        </div>
-
-                        <FormGroup tag="fieldset" row>
-                            <legend className="col-form-label sm-10">Student or Teacher?</legend>
-
-                            <FormGroup check>
-                                <Label check>
-                                    <input type="radio" name="userTypeBox" value="Student"/>
-                                    Student
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <input type="radio" name="userTypeBox" value="Professor"/>
-                                    Professor
-                                </Label>
-                            </FormGroup>
-                        </FormGroup>
-
-                        <input className='btnClk logBtn' type="button" value="REGISTER" id="loginButton"/>
-                    </form>
-                </div>
-
-            </div>
-
-        )
-    }
 }
 
 export default signup;
