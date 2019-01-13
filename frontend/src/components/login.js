@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './App.css';
-import {Redirect} from 'react-router';
 import Popup from "reactjs-popup";
 import SignUp from './signup.js';
 import $ from 'jquery';
@@ -12,22 +11,10 @@ const contentStyle = {
     width: "90%"
 };
 
-
 class login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            passwordHash: '',
-            userType: ''
-        };
-        this.handleChange = (evt) => {
-            this.setState({
-                [evt.target.name]: evt.target.value
-            });
-        };
-
     }
 
     componentWillMount() {
@@ -45,6 +32,14 @@ class login extends Component {
                         console.log(response);
                         updateLocalStorage(response);
                         localStorageDemo();
+
+                        let StateUserType = localStorage.getItem('userType');
+                        if (StateUserType === 'Student') {
+                            window.location.replace('/studentPage');
+                        }
+                        if (StateUserType === 'Professor') {
+                            window.location.replace('/profPage');
+                        }
                     },
                     error: function (xhr, status) {
                         alert("error");
@@ -74,14 +69,6 @@ class login extends Component {
 
     render() {
 
-
-        if (this.state.userType === 'Student') {
-            return <Redirect to='/studentPage'/>
-        }
-        if (this.state.userType === 'Professor') {
-            return <Redirect to='/profPage'/>
-        }
-
         return (
             <div className="LogIn">
                 <div id='loginForm'>
@@ -89,21 +76,13 @@ class login extends Component {
                     <form>
                         <div className='block'>
                             <label htmlFor="exampleEmail">Email</label>
-                            <input id="emailBox" type="text" value="blue.carrot@vegetables.com"
-                                   onChange={this.handleChange}/>
+                            <input id="emailBox" type="text" placeholder="name@csie.ase.ro"/>
                         </div>
                         <div className='block'>
-                            <label for="examplePassword" >Password</label>
-                            <input id="passwordBox" type="password" value="12345678" onChange={this.handleChange}/>
+                            <label htmlFor="examplePassword" >Password</label>
+                            <input id="passwordBox" type="password" placeholder="password"/>
                         </div>
-                            <input className='btnClk logBtn' id='loginButton' type="button" value="Login"
-                                   onClick={() => {
-                                       this.setState({
-                                           userType: localStorage.getItem('userType')
-                                       });
-                                   }
-                                   }/>
-
+                            <input className='btnClk logBtn' id='loginButton' type="button" value="Login" />
                     </form>
 
                     <p>Don't have an account?</p>
@@ -112,8 +91,14 @@ class login extends Component {
                         trigger={<button className="btnClk logBtn"> Register! </button>}
                         modal
                         contentStyle={contentStyle}>
-                        <SignUp/>
-
+                        {close => (
+                            <div>
+                                <SignUp/>
+                                <a className="close" onClick={close}>
+                                    &times;
+                                </a>
+                            </div>
+                        )}
                     </Popup>
                 </div>
             </div>
