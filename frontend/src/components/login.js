@@ -82,10 +82,10 @@ class login extends Component {
                             <label htmlFor="examplePassword" >Password</label>
                             <input id="passwordBox" type="password" placeholder="password"/>
                         </div>
-                            <input className='btnClk logBtn' id='loginButton' type="button" value="Login" />
+                        <input className='btnClk logBtn' id='loginButton' type="button" value="Login" />
                     </form>
 
-                    <p>Don't have an account?</p>
+                    <p className="Hh">Don't have an account?</p>
 
                     <Popup
                         trigger={<button className="btnClk logBtn"> Register! </button>}

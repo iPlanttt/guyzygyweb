@@ -1,126 +1,96 @@
 import React, { Component } from 'react';
-import quizQuestions from "./../api/quizQuestions";
-import Quiz from './Quiz';
-import Result from './Result';
-import logo from './../svg/logo.svg';
+import $ from 'jquery'
+import logo from '../assets/logoPatrat.png';
 import './App.css';
 
 class StudentQuiz extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            counter: 0,
-            questionId: 1,
-            question: '',
-            answerOptions: [],
-            answer: '',
-            answersCount: {
-                Nintendo: 0,
-                Microsoft: 0,
-                Sony: 0
-            },
-            result: ''
-        };
-
-        this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     }
 
-    componentWillMount() {
-        const shuffledAnswerOptions = quizQuestions.map(question =>
-            this.shuffleArray(question.answers)
-        );
-        this.setState({
-            question: quizQuestions[0].question,
-            answerOptions: shuffledAnswerOptions[0]
+    componentDidMount () {
+        var endpoint = "http://quyzygy.us/"
+
+        $(window).on('load', function(){
+            displayNextQuestion();
         });
-    }
 
-    shuffleArray(array) {
-        var currentIndex = array.length,
-            temporaryValue,
-            randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
+        function displayNextQuestion(){
+            $.get(endpoint + "nextQuestion?" + getParamCredentials(), function(data){
+                console.log(data);
+                if (data.Success){
+                    let question = data.Data;
+                    if (question == "Completed!"){
+                        window.location = '/studentPage';
+                        return;
+                    }
+                    $("#currentQuestionTitle").html(question.Text);
+                    buildAnswers(question);
+                }
+                else{
+                    $("#currentQuestionTitle").html("You shouldn't be seeing this :/");
+                    $("#answer-area").html("");
+                }
+            });
         }
 
-        return array;
-    }
+        function buildAnswers(question){
+            var html = "";
+            if (question.Type == "SingleAnswer"){
+                html += '<ul class="answerOptions">';
+                var qs = JSON.parse(question.Answers);
+                for (let i = 0; i < qs.length; i++){
+                    html += "<li class='answerOption'>";
+                    html += '<input type="radio" class="radioCustomButton" name="radioGroup" id="ans' + i + '" value="' + qs[i] + '">';
+                    html += '<label class="radioCustomLabel" for="ans' + i + '">' + qs[i] + '</label>';
+                    html += "</li>";
+                }
+                html += '</ul>';
+                $("#answer-area").html(html);
+                //Events
+                for (let i = 0; i < qs.length; i++){
+                    var id = 'ans' + i;
+                    $("#" + id).on('click', function(){
+                        answerCurrentQuestion({questionID:question.id,answer:$("#" + id).value});
+                    });
+                }
+            }
+            else if (question.Type == "MultipleAnswer"){
 
-    handleAnswerSelected(event) {
-        this.setUserAnswer(event.currentTarget.value);
-
-        if (this.state.questionId < quizQuestions.length) {
-            setTimeout(() => this.setNextQuestion(), 300);
-        } else {
-            setTimeout(() => this.setResults(this.getResults()), 300);
+            }
+            else if (question.Type == "OpenAnswer"){
+                html += '<ul class="answerOptions">';
+                html += "<p>Answer:</p><input type='text' id='ans'/>"
+                html+="<button id='ans-btn'>Answer</button>"
+                html += '</ul>';
+                $("#answer-area").html(html);
+                $("#ans-btn" ).on('click', function(){
+                    answerCurrentQuestion({questionID:question.id,answer:$("#ans").value});
+                });
+            }
+            return html;
         }
-    }
 
-    setUserAnswer(answer) {
-        this.setState((state, props) => ({
-            answersCount: {
-                ...state.answersCount,
-                [answer]: state.answersCount[answer] + 1
-            },
-            answer: answer
-        }));
-    }
-
-    setNextQuestion() {
-        const counter = this.state.counter + 1;
-        const questionId = this.state.questionId + 1;
-
-        this.setState({
-            counter: counter,
-            questionId: questionId,
-            question: quizQuestions[counter].question,
-            answerOptions: quizQuestions[counter].answers,
-            answer: ''
-        });
-    }
-
-    getResults() {
-        const answersCount = this.state.answersCount;
-        const answersCountKeys = Object.keys(answersCount);
-        const answersCountValues = answersCountKeys.map(key => answersCount[key]);
-        const maxAnswerCount = Math.max.apply(null, answersCountValues);
-
-        return answersCountKeys.filter(key => answersCount[key] === maxAnswerCount);
-    }
-
-    setResults(result) {
-        if (result.length === 1) {
-            this.setState({ result: result[0] });
-        } else {
-            this.setState({ result: 'Undetermined' });
+        function answerCurrentQuestion(answer){
+            $.ajax({
+                url: endpoint + "postAnswer?" + getParamCredentials(),
+                type: "POST",
+                crossDomain: true,
+                contentType:"application/json",
+                data:JSON.stringify({questionID:answer.questionID, answer:answer.answer}),
+                success: function (response) {
+                    displayNextQuestion();
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
         }
-    }
 
-    renderQuiz() {
-        return (
-            <Quiz
-                answer={this.state.answer}
-                answerOptions={this.state.answerOptions}
-                questionId={this.state.questionId}
-                question={this.state.question}
-                questionTotal={quizQuestions.length}
-                onAnswerSelected={this.handleAnswerSelected}
-            />
-        );
-    }
-
-    renderResult() {
-        return <Result quizResult={this.state.result} />;
+        function getParamCredentials(){
+            var id = JSON.parse(localStorage.getItem('identity'));
+            return "sk=" + id.SecretKey + "&ac=" + id.AccessCode + "&wsid=" + id.WSID;
+        }
     }
 
     render() {
@@ -128,9 +98,15 @@ class StudentQuiz extends Component {
             <div className="StudentQuiz">
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
-                    <h2>React Quiz</h2>
+                    <h2>QUYZYGY</h2>
                 </div>
-                {this.state.result ? this.renderResult() : this.renderQuiz()}
+                <div id='quiz-area'>
+                    <center>
+                        <h1 id="currentQuestionTitle"></h1>
+                        <div id='answer-area'></div>
+                    </center>
+
+                </div>
             </div>
         );
     }

@@ -73,7 +73,7 @@ class signup extends Component {
 
         )
     }
-    
+
     componentWillMount() {
 
         var endpoint_API = "http://quyzygy.us/";

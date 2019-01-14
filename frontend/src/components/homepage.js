@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import logo from '../assets/logo2.png';
+import imgAndreea from '../assets/andreea.png';
+import imgIoana from '../assets/ioana.png';
+import imgCristina from '../assets/cristina.png';
+import imgGeorge from '../assets/george.png';
+import imgVictor from '../assets/victor.png';
 import LogIn from './login.js';
 import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
+    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink
 } from 'reactstrap';
-import { Link } from 'react-router-dom'
+import { Col, Row} from 'react-bootstrap';
 
 class homepage extends Component {
-    
-    
+
+
     constructor(props) {
         super(props);
 
@@ -24,11 +23,13 @@ class homepage extends Component {
             isOpen: false
         };
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
+
     render() {
         return (
             <div className="HomePage">
@@ -36,7 +37,7 @@ class homepage extends Component {
                     <NavbarBrand href="/">
                         <img src={logo} alt="logo" height='30px'/>
                     </NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
+                    <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
@@ -54,44 +55,74 @@ class homepage extends Component {
                         </Nav>
                     </Collapse>
                 </Navbar>
-                
-                
-                <div id="UtilitySection">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining
-                    essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    
-                    
-                    <li><Link to='/studentPage'>Student Page</Link></li>
-                    <li><Link to='/profPage'>Proff Page</Link></li>
-                  </div>
-                
-                  <div id="SignUpSection">
-                  <LogIn />
-                </div>
-                
-                  <div id="AboutSection">
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
-                    layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
-                    using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web
-                    page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web
-                    sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                    purpose (injected humour and the like).
-                  </div>
-                  <div id="DonateSection">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                    sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                  </div>
 
-      </div>
-    );
-  }
+
+                <div id="UtilitySection">
+
+                    <div id='utilityText'>
+                        <p>
+                            Upon a quick reflection, everyone can easily notice that tests are hard – not only from the
+                            student’s perspective, but also the professor’s.<br/><br/>
+
+                            Quyzygy is a multi-platform application that will save the professor’s energy by cutting the grading time all
+                            together, which also means giving the student’s mark as soon as he is done with the test, but also
+                            save material resources, by finding a much suitable platform for those exams. In addition we also
+                            expect we’ll be able to ease the creation of quizzes by giving people the change to edit them and
+                            even share them.<br/><br/>
+
+                            We make quizzes fun and simple!
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="SignUpSection">
+                    <LogIn/>
+                </div>
+
+                <div id="AboutSection">
+                    <p>
+                        Great minds change the world. We did this app.<br/></p>
+
+                    <div>
+                        <Row>
+                            <Col xs={6} md={4}>
+                                <img src={imgAndreea} className="responsive" alt="Andreea Preda"/>
+                                    <p>Andreea Preda</p>
+                            </Col>
+                            <Col xs={6} md={4}>
+                                <img src={imgGeorge} className="responsive" alt="George Mihaila"/>
+                                    <p>George Mihaila</p>
+                            </Col>
+                            <Col xs={6} md={4}>
+                                <img src={imgCristina} className="responsive" alt="Cristina Radulescu"/>
+                                    <p>Cristina Radulescu</p>
+                            </Col>
+                            <Col xs={6} md={4}>
+                                <img src={imgVictor} className="responsive" alt="Victor Oprica"/>
+                                <p>Victor Oprica</p>
+                            </Col>
+                            <Col xs={6} md={4}>
+                                <img src={imgIoana} className="responsive" alt="Ioana Pasarin"/>
+                                <p>Ioana Pasarin</p>
+                            </Col>
+                        </Row>
+                    </div>
+
+                </div>
+                <div id="DonateSection">
+                    <div id='DonateText'>
+                    <p>
+                    You can donate money here: RO49 AAAA 1B31 0075 9384 0000<br/><br/>
+                    We also accept good grades.<br/><br/>
+                        <p className="Hh">Thank you! :)</p>
+                    </p>
+                    </div>
+                </div>
+
+            </div>
+        );
+    }
 }
 
 export default homepage;

@@ -14,8 +14,8 @@ import {
 } from 'reactstrap';
 
 class profpage extends Component {
-    
-      constructor(props) {
+
+    constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
@@ -32,26 +32,26 @@ class profpage extends Component {
             isOpen: !this.state.isOpen
         });
     }
-    
-  render() {
-      
-      if (this.state.toStudentGrades === true) {
-      return <Redirect to='/StudentQuiz' />
-    }
-     if (this.state.toMyQiuzzes === true) {
-      return <Redirect to='/editQuizes' />
-    }
-    if (this.state.toStartQuiz === true) {
-      return <Redirect to='/StudentQuiz' />
-    }
-     if (this.state.toCreateNewQuiz === true) {
-      return <Redirect to='/createQuiz' />
-    }
-      
-    return (
-      <div className="ProfPage" id='profPage'>
-     
-     <Navbar id='navbar' dark expand="md" fixed="top" height='40px'>
+
+    render() {
+
+        if (this.state.toStudentGrades === true) {
+            return <Redirect to='/StudentQuiz' />
+        }
+        if (this.state.toMyQiuzzes === true) {
+            return <Redirect to='/editQuizes' />
+        }
+        if (this.state.toStartQuiz === true) {
+            return <Redirect to='/startQuizPage' />
+        }
+        if (this.state.toCreateNewQuiz === true) {
+            return <Redirect to='/createQuiz' />
+        }
+
+        return (
+            <div className="ProfPage" id='profPage'>
+
+                <Navbar id='navbar' dark expand="md" fixed="top" height='40px'>
                     <NavbarBrand href="/">
                         <img src={logo} alt="logo" height='30px'/>
                     </NavbarBrand>
@@ -64,37 +64,37 @@ class profpage extends Component {
                         </Nav>
                     </Collapse>
                 </Navbar>
-                
+
                 <div className='mainSection'>
-                
+
                     <div>
-                   <input className='btnClk btnProf' type="button" value="START QUIZ" onClick={() => {
-     
-                          this.setState({ toStartQuiz: true});
+                        <input className='btnClk btnProf' type="button" value="START QUIZ" onClick={() => {
+
+                            this.setState({ toStartQuiz: true});
                         }} />
                     </div>
                     <div>
-                   <input className='btnClk btnProf' type="button" value="CREATE NEW QUIZ" onClick={() => {
-     
-                           this.setState({ toCreateNewQuiz: true});
+                        <input className='btnClk btnProf' type="button" value="CREATE NEW QUIZ" onClick={() => {
+
+                            this.setState({ toCreateNewQuiz: true});
                         }} />
 
-                   <input className='btnClk btnProf' type="button" value="EDIT MY QUIZZES" onClick={() => {
-     
-                           this.setState({ toMyQiuzzes: true});
+                        <input className='btnClk btnProf' type="button" value="EDIT MY QUIZZES" onClick={() => {
+
+                            this.setState({ toMyQiuzzes: true});
                         }} />
                     </div>
-                     <div>
-                   <input className='btnClk btnProf' type="button" value="SEE STUDENT GRADES" onClick={() => {
-     
-                           this.setState({ toStudentGrades: true});
+                    <div>
+                        <input className='btnClk btnProf' type="button" value="SEE STUDENT GRADES" onClick={() => {
+
+                            this.setState({ toStudentGrades: true});
                         }} />
+                    </div>
                 </div>
-        </div>
-     
-      </div>
-    );
-  }
+
+            </div>
+        );
+    }
 }
 
 export default profpage;
