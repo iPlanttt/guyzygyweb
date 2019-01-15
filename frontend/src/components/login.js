@@ -30,9 +30,9 @@ class login extends Component {
                     crossDomain: true,
                     success: function (response) {
                         console.log(response);
+                        localStorage.setItem('email', $("#emailBox").val());
                         updateLocalStorage(response);
                         localStorageDemo();
-
                         let StateUserType = localStorage.getItem('userType');
                         if (StateUserType === 'Student') {
                             window.location.replace('/studentPage');
